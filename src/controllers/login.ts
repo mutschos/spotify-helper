@@ -28,6 +28,6 @@ export class Login {
         const username = req.user.displayName;
         // tslint:disable-next-line:no-console
         console.log(username + ' is logged in');
-        res.sendFile('./views/index.html');
+        res.redirect('/welcome.html');
     }
 }
