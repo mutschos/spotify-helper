@@ -3,7 +3,7 @@ import { Strategy, VerifyCallback } from 'passport-spotify';
 
 export class PassportConfig {
 
-public setup(passport: PassportStatic) {
+  public setup(passport: PassportStatic) {
 
     passport.serializeUser((user, done) => {
       done(null, user);
@@ -23,8 +23,8 @@ public setup(passport: PassportStatic) {
           clientID: appKey,
           clientSecret: appSecret,
         },
-        (accessToken: string, refreshToken: string, expiresIn: any, profile: Profile, done: VerifyCallback) => {
-          return done(null, profile);
+        (aToken: string, rToken: string, expiresIn: any, profile: Profile, done: VerifyCallback) => {
+          return done(null, profile, {accessToken: aToken} );
         },
       ),
     );

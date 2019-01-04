@@ -9,7 +9,7 @@ export class Home {
     }
 
     private get(req: Request, res: Response) {
-        if (req.user === undefined) {
+        if (req.isUnauthenticated()) {
             res.redirect('/login');
         }
     }

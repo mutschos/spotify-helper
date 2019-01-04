@@ -24,10 +24,11 @@ export class Login {
         );
     }
 
-    private callback(req: Request, res: Response) {
+    private async callback(req: Request, res: Response) {
         const username = req.user.displayName;
         // tslint:disable-next-line:no-console
         console.log(username + ' is logged in');
+        req.user.accessToken = req.authInfo.accessToken;
         res.redirect('/welcome.html');
     }
 }
