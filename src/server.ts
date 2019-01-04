@@ -8,6 +8,7 @@ import winston from 'winston';
 import { PassportConfig } from './config/passport-config';
 import { Home } from './controllers/home';
 import { Login } from './controllers/login';
+import { Songs } from './controllers/songs';
 
 /**
  * The server.
@@ -40,9 +41,11 @@ export class Server {
     this.app.use(express.static('views'));
     this.app.set('port', port);
 
+    // necessary for passport.session
     this.app.use(session({ secret: Math.random().toString(36), resave: true, saveUninitialized: true }));
     new PassportConfig().setup(passport);
     this.app.use(passport.initialize());
+    // alters the req object and adds an user object related to the session id of the session id send with the request
     this.app.use(passport.session());
 
     // mount logger
@@ -78,6 +81,7 @@ export class Server {
 
     Home.create(router);
     Login.create(router, passport);
+    Songs.create(router);
 
     // use router middleware
     this.app.use(router);
