@@ -13,8 +13,8 @@ export class PassportConfig {
       done(null, obj);
     });
 
-    const appKey = '5c21334e540249b281f0f198f21d0489';
-    const appSecret = '8110f4cf726c4773860b0df2198c4320';
+    const appKey = process.env.SpotifyHelperKey;
+    const appSecret = process.env.SpotifyHelperSecret;
 
     passport.use(
       new Strategy(

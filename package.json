@@ -18,6 +18,7 @@
   "homepage": "https://github.com/mutschos/spotify-helper#readme",
   "dependencies": {
     "@types/express-winston": "^3.0.0",
+    "dotenv": "^6.2.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "express-winston": "^3.0.0",

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const server = require('./dist/server');
 const logger = require('winston');
 
