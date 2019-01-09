@@ -7,6 +7,9 @@ export class Songs {
     router.get('/songs/updateUnlistenedSongs', (req: Request, res: Response) => {
         new Songs().updateUnlistenedSongs(req, res);
       });
+    router.get('/songs/fetchAlbumVersions', (req: Request, res: Response) => {
+        new Songs().fetchAlbumVersionForSingles(req, res);
+      });
   }
 
   private async updateUnlistenedSongs(req: Request, res: Response) {
@@ -24,6 +27,25 @@ export class Songs {
       });
       // tslint:disable-next-line:no-console
       console.log('Removed the following tracks', recentTrackNames);
+    } catch (error) {
+        // tslint:disable-next-line:no-console
+        console.error(error);
+    }
+    res.end();
+  }
+
+  private async fetchAlbumVersionForSingles(req: Request, res: Response) {
+    const spotifyApi = new SpotifyWebApi({accessToken: req.user.accessToken});
+    let songs: any[] = [];
+    try {
+      let numberOfSongsInResponse = 0;
+      let offset = 0;
+      do {
+        const response = await spotifyApi.getMySavedTracks({offset, limit: 50});
+        numberOfSongsInResponse = response.body.items.length;
+        songs = songs.concat(response.body.items);
+        offset = offset + 50;
+      } while (numberOfSongsInResponse > 0);
     } catch (error) {
         // tslint:disable-next-line:no-console
         console.error(error);
