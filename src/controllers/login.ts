@@ -7,7 +7,12 @@ export class Login {
         router.get (
             '/login',
             passport.authenticate('spotify', {
-              scope: ['user-read-recently-played', 'user-library-read', 'playlist-modify-private'],
+              scope: [
+                  'user-read-recently-played',
+                  'user-library-read',
+                  'playlist-modify-private',
+                  'playlist-modify-public',
+                 ],
             }),
             (req: any, res: any) => {
               // The request will be redirected to spotify for authentication, so this
