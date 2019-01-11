@@ -36,20 +36,25 @@ export class Songs {
 
   private async fetchAlbumVersionForSingles(req: Request, res: Response) {
     const spotifyApi = new SpotifyWebApi({accessToken: req.user.accessToken});
+    const songs: any[] = await this.getSavedSongs(spotifyApi);
+    res.end();
+  }
+
+  private async getSavedSongs(spotifyApi: any): Promise<any[]> {
     let songs: any[] = [];
     try {
       let numberOfSongsInResponse = 0;
       let offset = 0;
       do {
-        const response = await spotifyApi.getMySavedTracks({offset, limit: 50});
+        const response = await spotifyApi.getMySavedTracks({ offset, limit: 50 });
         numberOfSongsInResponse = response.body.items.length;
         songs = songs.concat(response.body.items);
         offset = offset + 50;
       } while (numberOfSongsInResponse > 0);
     } catch (error) {
-        // tslint:disable-next-line:no-console
-        console.error(error);
+      // tslint:disable-next-line:no-console
+      console.error(error);
     }
-    res.end();
+    return songs;
   }
 }
